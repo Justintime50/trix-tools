@@ -1,0 +1,47 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install dependencies
+        run: npm install
+      - name: Run Eslint
+        run: |
+          npm run lint
+          npm run format-check
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        nodeversion: ['16', '18', '20', '22', '24']
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.nodeversion }}
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm run test
+  coverage:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm run coverage
+      - uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
