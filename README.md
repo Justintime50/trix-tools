@@ -31,7 +31,7 @@ You can paste a simple link (eg: `https://twitter.com/Justintime_50/status/123`)
 import { renderTrixContentWithEmbeds } from 'trix-tools';
 
 // Re-render all your original Trix HTML content but with YouTube and Twitter links embeded
-const trixContent = document.getElementById("trix-content");
+const trixContent = document.getElementById('trix-content');
 trixContent.innerHTML = renderTrixContentWithEmbeds(trixContent.innerHTML, { youtube: true, twitter: true });
 ```
 
