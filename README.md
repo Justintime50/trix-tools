@@ -23,7 +23,7 @@ npm i trix-tools
 
 You can paste a simple link (eg: `https://www.youtube.com/watch?v=abc123`) into the Trix editor or a full YouTube iframe and Trix Tools will re-render it for you to be a well-formed embeded iframe.
 
-#### Twitteer
+#### Twitter
 
 You can paste a simple link (eg: `https://twitter.com/Justintime_50/status/123`) into the Trix editor or a full Tweet blockquote and Trix Tools will re-render it for you to be a well-formed embeded iframe (complete with Twitter script).
 
