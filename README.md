@@ -7,7 +7,7 @@ Tools for the Trix Text Editor.
 [![NPM](https://img.shields.io/npm/v/trix-tools)](https://www.npmjs.com/package/trix-tools)
 [![Licence](https://img.shields.io/github/license/justintime50/trix-tools)](https://opensource.org/licenses/mit-license.php)
 
-The [Trix Text Editor](https://github.com/basecamp/trix) is a WYSIWYG editor in the browser, allowing for easy text input in your projects. It has a few drawbacks though like not being able to render YouTube embeded videos or Twitter (X) Tweets out of the box. Trix Tools comes with various tools to help when using Trix in your projects.
+The [Trix Text Editor](https://github.com/basecamp/trix) is a WYSIWYG editor in the browser, allowing for easy text input in your projects. It has a few drawbacks though like not being able to render YouTube embeded videos, Twitter (X) Tweets, image links, or code blocks out of the box. Trix Tools comes with various tools to help render that input content when using Trix in your projects.
 
 ## Install
 
@@ -17,22 +17,79 @@ npm i trix-tools
 
 ## Usage
 
-### Render Trix Content with Embeds
+Trix Tools is modular, allowing you to choose which rendering plugins you want to use for your project. Below you'll find all the available plugins which can be disabled to fit your needs. All plugins are enabled out of the box.
 
-#### YouTube
+```javascript
+import { renderTrixContent } from 'trix-tools';
 
-You can paste a simple link (eg: `https://www.youtube.com/watch?v=abc123`) into the Trix editor or a full YouTube iframe and Trix Tools will re-render it for you to be a well-formed embeded iframe.
+// Re-render all your original Trix HTML content using all plugins except Twitter
+const trixContent = document.getElementById('trix-content');
+trixContent.innerHTML = renderTrixContent(trixContent.innerHTML, { twitter: false });
+```
+
+### Plugins
+
+#### Code
+
+Plugin name: `inlineCode`
+
+You can paste \`mycode\` into the Trix editor and Trix Tools will re-render it as `<code>mycode</code>`.
+
+---
+
+Plugin name: `codeBlocks`
+
+You can paste:
+
+\`\`\`python
+foo = "hello world"
+\`\`\`
+
+into the Trix editor and Trix Tools will re-render it as:
+
+`<pre><code class="language-python">foo = "hello world"</code></pre>`
+
+We append the `language-{lang}` HTML class so you can use syntax highlighting packages.
+
+#### Images
+
+Plugin name: `images`
+
+You can paste an image link into the Trix editor and Trix Tools will re-render it as an image HTML tag. The image will auto scale Y and max width 100% of its container.
 
 #### Twitter
 
-You can paste a simple link (eg: `https://twitter.com/Justintime_50/status/123`) into the Trix editor or a full Tweet blockquote and Trix Tools will re-render it for you to be a well-formed embeded iframe (complete with Twitter script).
+Plugin name: `twitter`
 
-```javascript
-import { renderTrixContentWithEmbeds } from 'trix-tools';
+You can paste a simple link (eg: `https://twitter.com/Justintime_50/status/123`) into the Trix editor or a full Tweet blockquote and Trix Tools will re-render it as a well-formed embeded iframe (complete with Twitter script).
 
-// Re-render all your original Trix HTML content but with YouTube and Twitter links embeded
+#### YouTube
+
+Plugin name: `youtube`
+
+You can paste a simple link (eg: `https://www.youtube.com/watch?v=abc123`) into the Trix editor or a full YouTube iframe and Trix Tools will re-render it as a well-formed embeded iframe.
+
+#### Custom Plugins
+
+Plugin name: whatever you want!
+
+You can register your own plugins and have Trix Tools give the same treatment as our 1st party plugins to your content:
+
+```js
+import { renderTrixContent, registerTrixPlugin } from 'trix-tools';
+
+// Define your custom plugin
+function renderCustomStuff(html) {
+  // Custom processing...
+  return html.replace(/foo/g, 'bar');
+}
+
+// Register it
+registerTrixPlugin('custom', renderCustomStuff);
+
+// Use it
 const trixContent = document.getElementById('trix-content');
-trixContent.innerHTML = renderTrixContentWithEmbeds(trixContent.innerHTML, { youtube: true, twitter: true });
+trixContent.innerHTML = renderTrixContent(trixContent.innerHTML, { custom: true });
 ```
 
 ## Development
