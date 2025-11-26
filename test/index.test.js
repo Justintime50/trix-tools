@@ -73,6 +73,16 @@ describe('youtube plugin', function () {
     );
   });
 
+  it('returns an embedded youtube iframe when provided a youtube.com link even if wrapped by trix with an <a> tag', function () {
+    const html = renderTrixContent(
+      '<a href="https://www.youtube.com/watch?v=abc123">https://www.youtube.com/watch?v=abc123</a>'
+    );
+    assert.equal(
+      html,
+      '<iframe width="560" height="315" src="https://youtube.com/embed/abc123" frameborder="0" allowfullscreen></iframe>'
+    );
+  });
+
   it('returns an embedded youtube iframe when provided a youtu.be link', function () {
     const html = renderTrixContent('https://www.youtu.be/abc123');
     assert.equal(
