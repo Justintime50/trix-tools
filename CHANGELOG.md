@@ -2,7 +2,7 @@
 
 ## v0.3.0 (2025-12-02)
 
-- YouTube Shorts links can now be embeded
+- YouTube Shorts links can now be embedded
 
 ## v0.2.1 (2025-11-26)
 
