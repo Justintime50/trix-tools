@@ -65,6 +65,14 @@ describe('twitter plugin', function () {
 });
 
 describe('youtube plugin', function () {
+  it('returns an embedded youtube iframe when provided a youtube shorts link', function () {
+    const html = renderTrixContent('https://youtube.com/shorts/abc?si=xyz');
+    assert.equal(
+      html,
+      '<iframe width="560" height="315" src="https://youtube.com/embed/abc?si=xyz" frameborder="0" allowfullscreen></iframe>'
+    );
+  });
+
   it('returns an embedded youtube iframe when provided a youtube.com link', function () {
     const html = renderTrixContent('https://www.youtube.com/watch?v=abc123');
     assert.equal(
