@@ -5,20 +5,30 @@ import { registerTrixPlugin, renderTrixContent } from '../index.js';
 
 describe('standard html', function () {
   it('returns standard html', function () {
-    const html = renderTrixContent('&lt;b&gt;Bold Text&lt;/b&gt;');
-    assert.equal(html, '&lt;b&gt;Bold Text&lt;/b&gt;');
+    const html = renderTrixContent('<b>Bold Text</b>');
+    assert.equal(html, '<b>Bold Text</b>');
   });
 });
 
 describe('codeBlocks plugin', function () {
   it('returns an html code block with language when triple backticks are provided', function () {
-    const html = renderTrixContent('```python\nfoo = "hello world"\n```');
+    const html = renderTrixContent('```python<br />foo = "hello world"<br />```');
+    assert.equal(html, '<pre><code class="language-python">foo = "hello world"\n</code></pre>');
+  });
+
+  it('returns an html code block with language and no linebreaks when triple backticks are provided', function () {
+    const html = renderTrixContent('```python foo = "hello world"```');
     assert.equal(html, '<pre><code class="language-python">foo = "hello world"</code></pre>');
   });
 
   it('returns an html code block without language when triple backticks are provided', function () {
-    const html = renderTrixContent('```\nfoo = "hello world"\n```');
-    assert.equal(html, '<pre><code>foo = "hello world"</code></pre>');
+    const html = renderTrixContent('```<br />foo = "hello world"<br />```');
+    assert.equal(html, '<pre><code>foo = "hello world"\n</code></pre>');
+  });
+
+  it('escapes single backticks inside triple backticks', function () {
+    const html = renderTrixContent('```shell<br /># My `var` is important<br />```');
+    assert.equal(html, '<pre><code class="language-shell"># My &#96;var&#96; is important\n</code></pre>');
   });
 });
 

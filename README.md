@@ -41,9 +41,9 @@ foo = "hello world"
 
 into the Trix editor and Trix Tools will re-render it as:
 
-`<pre><code class="language-python">foo = "hello world"</code></pre>`
+`<pre><code class="language-python">foo = "hello world"\n</code></pre>`
 
-We append the `language-{lang}` HTML class so you can use syntax highlighting packages.
+We append the `language-{lang}` HTML class so you can use syntax highlighting packages. The language identifier at the start of your code block is optional.
 
 #### Images
 

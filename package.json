@@ -1,6 +1,6 @@
 {
   "name": "trix-tools",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Tools for the Trix Text Editor.",
   "main": "index.js",
   "type": "module",
