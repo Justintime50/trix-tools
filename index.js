@@ -3,7 +3,7 @@ import { renderImageLinks } from './lib/images.js';
 import { renderTwitterEmbeds } from './lib/twitter.js';
 import { renderYouTubeEmbeds } from './lib/youtube.js';
 
-const plugins = {
+const pluginsMapping = {
   codeBlocks: renderCodeBlocks,
   images: renderImageLinks,
   inlineCode: renderInlineCode,
@@ -14,17 +14,16 @@ const plugins = {
 /**
  * Render Trix content with selected plugins.
  * @param {string} html - The HTML content to process.
- * @param {Object} options - Which plugins to enable (e.g. { youtube: true, twitter: true }).
+ * @param {Object} plugins - Which plugins to enable/disable.
  * @returns {string} - Processed HTML.
  */
-export function renderTrixContent(
-  html,
-  options = { codeBlocks: true, images: true, inlineCode: true, youtube: true, twitter: true }
-) {
+export function renderTrixContent(html, plugins = {}) {
+  const pluginsDefault = { codeBlocks: true, images: true, inlineCode: true, youtube: true, twitter: true };
+  const finalPlugins = { ...pluginsDefault, ...plugins };
   let result = html;
-  for (const [key, enabled] of Object.entries(options)) {
-    if (enabled && plugins[key]) {
-      result = plugins[key](result);
+  for (const [key, enabled] of Object.entries(finalPlugins)) {
+    if (enabled && pluginsMapping[key]) {
+      result = pluginsMapping[key](result);
     }
   }
   return result;
@@ -36,5 +35,5 @@ export function renderTrixContent(
  * @param {function} fn - Plugin function.
  */
 export function registerTrixPlugin(name, fn) {
-  plugins[name] = fn;
+  pluginsMapping[name] = fn;
 }

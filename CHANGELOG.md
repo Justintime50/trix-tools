@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v0.3.1 (2025-12-02)
+
+- Fixes default plugins list to merge with user-provided plugins list
+- 2nd param of `renderTrixContent` renamed from `options` to `plugins`
+
 ## v0.3.0 (2025-12-02)
 
 - YouTube Shorts links can now be embedded

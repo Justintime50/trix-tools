@@ -29,13 +29,7 @@ trixContent.innerHTML = renderTrixContent(trixContent.innerHTML, { twitter: fals
 
 ### Plugins
 
-#### Code
-
-Plugin name: `inlineCode`
-
-You can paste \`mycode\` into the Trix editor and Trix Tools will re-render it as `<code>mycode</code>`.
-
----
+#### Code Blocks
 
 Plugin name: `codeBlocks`
 
@@ -56,6 +50,12 @@ We append the `language-{lang}` HTML class so you can use syntax highlighting pa
 Plugin name: `images`
 
 You can paste an image link into the Trix editor and Trix Tools will re-render it as an image HTML tag. The image will auto scale Y and max width 100% of its container.
+
+#### Inline Code
+
+Plugin name: `inlineCode`
+
+You can paste \`mycode\` into the Trix editor and Trix Tools will re-render it as `<code>mycode</code>`.
 
 #### Twitter
 
